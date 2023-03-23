@@ -8,4 +8,4 @@ let () =
 
         let init = {x=0; y=8; turn=`Blue} in
         Term.image t Infix.(Board.to_img b init <-> I.string A.empty "Space to exit, Enter to switch turns, ←↑↓→ to move");
-        update t b init
+        update init t b

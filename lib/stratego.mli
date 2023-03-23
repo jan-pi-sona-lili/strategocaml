@@ -9,5 +9,5 @@ module Board : sig
         val create : unit -> t
 end
 
-val draw : Notty_unix.Term.t -> Board.t -> state -> unit
-val update : Notty_unix.Term.t -> Board.t -> state -> unit
+val draw : state -> Notty_unix.Term.t -> Board.t -> unit
+val update : state -> Notty_unix.Term.t -> Board.t -> unit

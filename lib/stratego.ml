@@ -85,15 +85,15 @@ module Board = struct
                 board
 end
 
-let rec draw t b state = Term.image t Infix.(Board.to_img (if state.turn=`Blue then b else Array.rev b) state <-> I.string A.empty "Space to exit, Enter to switch turns, ←↑↓→ to move"); 
-                         update t b state
-        and update t b ({x;y;turn} as state) =
-                match Term.event t with
-                | `Key (`ASCII ' ',_)    -> ()
-                | `Key (`Enter,_)        -> draw t b {state with turn=not_turn turn}
-                | `Key (`Arrow `Left,_)  -> draw t b {state with x=max 0 (x-1)}
-                | `Key (`Arrow `Right,_) -> draw t b {state with x=min (x+1) 9}
-                | `Key (`Arrow `Down,_)  -> draw t b {state with y=min (y+1) 9}
-                | `Key (`Arrow `Up,_)    -> draw t b {state with y=max 0 (y-1)}
-                | `Resize _              -> draw t b state
-                | _                      -> update t b state
+let rec draw state t b = Term.image t Infix.(Board.to_img (if state.turn=`Blue then b else Array.rev b) state <-> I.string A.empty "Space to exit, Enter to switch turns, ←↑↓→ to move"); 
+                         update state t b 
+        and update ({x;y;turn} as state) t b =
+                (match Term.event t with
+                | `Key (`ASCII ' ',_)    -> Fun.(const (const ()))
+                | `Key (`Enter,_)        -> draw {state with turn=not_turn turn}
+                | `Key (`Arrow `Left,_)  -> draw {state with x=max 0 (x-1)}
+                | `Key (`Arrow `Right,_) -> draw {state with x=min (x+1) 9}
+                | `Key (`Arrow `Down,_)  -> draw {state with y=min (y+1) 9}
+                | `Key (`Arrow `Up,_)    -> draw {state with y=max 0 (y-1)}
+                | `Resize _              -> draw state
+                | _                      -> update state) t b
