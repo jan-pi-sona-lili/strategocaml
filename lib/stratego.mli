@@ -1,7 +1,7 @@
 type turn = [ `Blue | `Red ]
 val not_turn : turn -> turn
 
-type state = { x:int; y:int; turn:turn; }
+type state = { x:int; y:int; turn:turn; pressed:(int*int) option; }
 
 module Board : sig
         type t
