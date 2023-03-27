@@ -73,10 +73,10 @@ end
 module Board = struct
         type t = Tile.t array array
 
-        let ( .![;..] ) board arr = let [x;y] = Array.to_list arr in board.(y).(x)
+        let ( .![;..] ) board [|x;y|] = board.(y).(x)
         [@@warning "-8"]
 
-        let ( .![;..]<- ) board arr e = let [x;y] = Array.to_list arr in board.(y).(x) <- e
+        let ( .![;..]<- ) board [|x;y|] e = board.(y).(x) <- e
         [@@warning "-8"]
 
         let to_img board {x;y;turn;_} =
