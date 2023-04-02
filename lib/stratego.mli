@@ -5,7 +5,6 @@ type state = { x:int; y:int; turn:turn; pressed:(int*int) option; }
 
 module Board : sig
         type t
-        val to_img : t -> state -> Notty.image
         val create : unit -> t
 end
 
